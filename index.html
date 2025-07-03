@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زمزم - معرض فاخر للصور والفيديوهات</title>
+    <meta name="description" content="معرض زمزم الفاخر للصور والفيديوهات مع تقنيات متطورة وتأثيرات بصرية مذهلة">
+    <meta name="keywords" content="معرض, صور, فيديو, زمزم, تصوير, فن, تقنيات متطورة">
+    <meta name="author" content="Zamzam Gallery">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="زمزم - معرض فاخر للصور والفيديوهات">
+    <meta property="og:description" content="معرض زمزم الفاخر للصور والفيديوهات مع تقنيات متطورة وتأثيرات بصرية مذهلة">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zamzam-gallery.com">
+    <meta property="og:image" content="./assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Noto+Sans+Arabic:wght@300;400;600;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="logo-container">
+                <div class="logo-circle">
+                    <div class="shiny-text">زمزم</div>
+                    <div class="logo-subtitle">ZAMZAM</div>
+                </div>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">مرحباً بكم في معرض زمزم الفاخر...</p>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div id="particles-js" class="particles-background"></div>
+    <div class="gradient-background"></div>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Welcome Message -->
+    <div id="welcome-message" class="welcome-message">
+        <div class="welcome-content">
+            <div class="welcome-icon glass-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                    <circle cx="12" cy="13" r="3"/>
+                </svg>
+            </div>
+            <h2 class="shiny-text">أهلاً وسهلاً بكم في معرض زمزم</h2>
+            <p>استمتعوا بتجربة فريدة لعرض الصور والفيديوهات بأحدث التقنيات</p>
+            <button class="welcome-close" onclick="closeWelcomeMessage()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h3 class="shiny-text">إعدادات التخصيص</h3>
+            <button class="settings-close" onclick="toggleSettings()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="settings-content">
+            <div class="setting-group">
+                <label>تغيير الخلفية:</label>
+                <div class="background-options">
+                    <button class="bg-option" data-bg="gradient" onclick="changeBackground('gradient')">متدرج</button>
+                    <button class="bg-option" data-bg="dark" onclick="changeBackground('dark')">داكن</button>
+                    <button class="bg-option" data-bg="blue" onclick="changeBackground('blue')">أزرق</button>
+                    <button class="bg-option" data-bg="purple" onclick="changeBackground('purple')">بنفسجي</button>
+                </div>
+            </div>
+            <div class="setting-group">
+                <label>تغيير الخط:</label>
+                <select id="font-selector" onchange="changeFont(this.value)">
+                    <option value="Cairo">القاهرة</option>
+                    <option value="Noto Sans Arabic">نوتو سانس العربية</option>
+                    <option value="Amiri">أميري</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label>تغيير الألوان:</label>
+                <div class="color-options">
+                    <button class="color-option" data-color="purple" onclick="changeTheme('purple')" style="background: #8B5CF6;"></button>
+                    <button class="color-option" data-color="blue" onclick="changeTheme('blue')" style="background: #3B82F6;"></button>
+                    <button class="color-option" data-color="green" onclick="changeTheme('green')" style="background: #10B981;"></button>
+                    <button class="color-option" data-color="red" onclick="changeTheme('red')" style="background: #EF4444;"></button>
+                    <button class="color-option" data-color="orange" onclick="changeTheme('orange')" style="background: #F59E0B;"></button>
+                </div>
+            </div>
+            <div class="setting-group">
+                <label>التأثيرات الصوتية:</label>
+                <div class="sound-controls">
+                    <button class="sound-toggle" onclick="toggleSound()">
+                        <span id="sound-status">تشغيل</span>
+                        <svg id="sound-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <div class="logo-wrapper">
+                            <div class="logo-circle-main glass-icon">
+                                <svg class="camera-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                                    <circle cx="12" cy="13" r="3"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="logo-text">
+                            <h1 class="main-title shiny-text">زمزم</h1>
+                            <h2 class="sub-title">ZAMZAM</h2>
+                            <p class="description">معرض فاخر للصور والفيديوهات مع تقنيات متطورة وتأثيرات بصرية مذهلة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <div class="action-buttons">
+                            <button class="btn btn-primary glass-icon" id="upload-btn">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                رفع ملفات
+                            </button>
+                            <button class="btn btn-secondary glass-icon" onclick="toggleSettings()">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"/>
+                                </svg>
+                                إعدادات
+                            </button>
+                            <button class="btn btn-accent glass-icon" onclick="downloadAllImages()">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                تحميل الكل
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search and Filters -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <div class="search-input-wrapper glass-icon">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        <input type="text" id="search-input" class="search-input" placeholder="البحث الذكي في المعرض... (جرب: طبيعة، كانون، 4K)">
+                        <div class="search-results-count">
+                            <span id="results-count">0 نتيجة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filters-container">
+                    <div class="filter-tabs glass-icon">
+                        <button class="filter-tab active" data-filter="all">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="9" y1="9" x2="15" y2="15"/>
+                                <line x1="15" y1="9" x2="9" y2="15"/>
+                            </svg>
+                            الكل
+                        </button>
+                        <button class="filter-tab" data-filter="images">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21,15 16,10 5,21"/>
+                            </svg>
+                            صور
+                        </button>
+                        <button class="filter-tab" data-filter="videos">
+                            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="23,7 16,12 23,17"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            </svg>
+                            فيديوهات
+                        </button>
+                    </div>
+
+                    <div class="view-modes glass-icon">
+                        <button class="view-mode active" data-view="masonry">
+                            <svg class="view-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="9"/>
+                                <rect x="13" y="3" width="8" height="5"/>
+                                <rect x="13" y="12" width="8" height="9"/>
+                                <rect x="3" y="16" width="7" height="5"/>
+                            </svg>
+                            بناء
+                        </button>
+                        <button class="view-mode" data-view="grid">
+                            <svg class="view-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"/>
+                                <rect x="14" y="3" width="7" height="7"/>
+                                <rect x="14" y="14" width="7" height="7"/>
+                                <rect x="3" y="14" width="7" height="7"/>
+                            </svg>
+                            شبكي
+                        </button>
+                        <button class="view-mode" data-view="rolling">
+                            <svg class="view-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 2a10 10 0 0 1 10 10"/>
+                            </svg>
+                            دوار
+                        </button>
+                        <button class="view-mode" data-view="3d">
+                            <svg class="view-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            ثلاثي الأبعاد
+                        </button>
+                    </div>
+
+                    <div class="category-manager glass-icon">
+                        <button class="btn btn-small" onclick="openCategoryManager()">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 5v14m7-7H5"/>
+                            </svg>
+                            إدارة التصنيفات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <div id="gallery-container" class="gallery-container masonry-layout">
+                    <!-- Gallery items will be dynamically inserted here -->
+                </div>
+
+                <!-- Rolling Gallery Container -->
+                <div id="rolling-gallery" class="rolling-gallery hidden">
+                    <div class="rolling-track">
+                        <!-- Rolling items will be inserted here -->
+                    </div>
+                    <div class="rolling-controls">
+                        <button class="control-btn" onclick="rollLeft()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15,18 9,12 15,6"/>
+                            </svg>
+                        </button>
+                        <button class="control-btn" onclick="rollRight()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9,18 15,12 9,6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3D Gallery Container -->
+                <div id="gallery-3d" class="gallery-3d hidden">
+                    <canvas id="three-canvas"></canvas>
+                    <div class="gallery-3d-controls">
+                        <button class="control-btn glass-icon" onclick="rotate3DLeft()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                        </button>
+                        <button class="control-btn glass-icon" onclick="rotate3DRight()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+                                <path d="M21 3v5h-5"/>
+                            </svg>
+                        </button>
+                        <button class="control-btn glass-icon" onclick="zoom3DIn()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                                <line x1="11" y1="8" x2="11" y2="14"/>
+                                <line x1="8" y1="11" x2="14" y2="11"/>
+                            </svg>
+                        </button>
+                        <button class="control-btn glass-icon" onclick="zoom3DOut()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="M21 21l-4.35-4.35"/>
+                                <line x1="8" y1="11" x2="14" y2="11"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="empty-state hidden">
+                    <div class="empty-content">
+                        <div class="empty-icon glass-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </div>
+                        <h3 class="empty-title shiny-text">لا توجد نتائج</h3>
+                        <p class="empty-description">جرب تغيير الفلاتر أو البحث بكلمات مختلفة</p>
+                        <div class="empty-actions">
+                            <button class="btn btn-primary" onclick="clearFilters()">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 6h18"/>
+                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                    <line x1="10" y1="11" x2="10" y2="17"/>
+                                    <line x1="14" y1="11" x2="14" y2="17"/>
+                                </svg>
+                                مسح الفلاتر
+                            </button>
+                            <button class="btn btn-secondary" onclick="document.getElementById('upload-btn').click()">
+                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                رفع محتوى جديد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card glass-icon">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21,15 16,10 5,21"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number shiny-text" id="total-items">0</div>
+                            <div class="stat-label">عنصر</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-icon">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number shiny-text" id="total-views">0</div>
+                            <div class="stat-label">مشاهدة</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-icon">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number shiny-text" id="total-likes">0</div>
+                            <div class="stat-label">إعجاب</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card glass-icon">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number shiny-text" id="average-rating">0.0</div>
+                            <div class="stat-label">تقييم</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Social Media Footer -->
+    <footer class="social-footer">
+        <div class="container">
+            <div class="social-content">
+                <div class="social-title">
+                    <h3 class="shiny-text">تواصل معنا</h3>
+                    <p>ابقوا على تواصل معنا عبر وسائل التواصل الاجتماعي</p>
+                </div>
+                <div class="social-links" id="social-links">
+                    <a href="#" class="social-link glass-icon" data-platform="facebook" aria-label="فيسبوك">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link glass-icon" data-platform="instagram" aria-label="إنستغرام">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.197-1.559-.748-.948-1.197-2.25-1.197-3.654 0-1.404.449-2.706 1.197-3.654.749-.948 1.9-1.559 3.197-1.559s2.448.611 3.197 1.559c.748.948 1.197 2.25 1.197 3.654 0 1.404-.449 2.706-1.197 3.654-.749.948-1.9 1.559-3.197 1.559zm7.138 0c-1.297 0-2.448-.611-3.197-1.559-.748-.948-1.197-2.25-1.197-3.654 0-1.404.449-2.706 1.197-3.654.749-.948 1.9-1.559 3.197-1.559s2.448.611 3.197 1.559c.748.948 1.197 2.25 1.197 3.654 0 1.404-.449 2.706-1.197 3.654-.749.948-1.9 1.559-3.197 1.559z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link glass-icon" data-platform="twitter" aria-label="تويتر">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link glass-icon" data-platform="youtube" aria-label="يوتيوب">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link glass-icon" data-platform="whatsapp" aria-label="واتساب">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.465 3.488"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="social-edit">
+                    <button class="btn btn-small glass-icon" onclick="editSocialLinks()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        تعديل الروابط
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- File Upload Modal -->
+    <div id="upload-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-icon">
+            <div class="modal-header">
+                <h3 class="modal-title shiny-text">رفع الملفات</h3>
+                <button class="modal-close" onclick="closeModal('upload-modal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon glass-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <h4 class="upload-title">اسحب الملفات هنا أو انقر للاختيار</h4>
+                    <p class="upload-description">يدعم الصور والفيديوهات (JPG, PNG, GIF, MP4, MOV)</p>
+                    <input type="file" id="file-input" multiple accept="image/*,video/*" class="file-input">
+                </div>
+                <div class="upload-progress hidden" id="upload-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="progress-text">جاري الرفع...</p>
+                </div>
+                <div class="upload-metadata">
+                    <div class="metadata-group">
+                        <label>العنوان:</label>
+                        <input type="text" id="upload-title" placeholder="أدخل عنوان الملف">
+                    </div>
+                    <div class="metadata-group">
+                        <label>الوصف:</label>
+                        <textarea id="upload-description" placeholder="أدخل وصف الملف"></textarea>
+                    </div>
+                    <div class="metadata-group">
+                        <label>التصنيف:</label>
+                        <select id="upload-category">
+                            <option value="عام">عام</option>
+                            <option value="طبيعة">طبيعة</option>
+                            <option value="فن">فن</option>
+                            <option value="تصوير">تصوير</option>
+                            <option value="معمارية">معمارية</option>
+                        </select>
+                    </div>
+                    <div class="metadata-group">
+                        <label>العلامات:</label>
+                        <input type="text" id="upload-tags" placeholder="أدخل العلامات مفصولة بفواصل">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Viewer Modal -->
+    <div id="image-viewer" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="image-viewer-content glass-icon">
+            <div class="image-viewer-header">
+                <div class="image-info">
+                    <h3 id="image-title" class="shiny-text">عنوان الصورة</h3>
+                    <p id="image-description">وصف الصورة</p>
+                </div>
+                <div class="image-actions">
+                    <button class="action-btn glass-icon" onclick="likeCurrentImage()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                        <span id="like-count">0</span>
+                    </button>
+                    <button class="action-btn glass-icon" onclick="shareCurrentImage()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"/>
+                            <circle cx="6" cy="12" r="3"/>
+                            <circle cx="18" cy="19" r="3"/>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                        </svg>
+                    </button>
+                    <button class="action-btn glass-icon" onclick="downloadCurrentImage()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </button>
+                    <button class="action-btn glass-icon" onclick="editCurrentImage()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </button>
+                    <button class="action-btn glass-icon" onclick="closeModal('image-viewer')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="image-viewer-body">
+                <button class="nav-btn nav-prev glass-icon" onclick="showPreviousImage()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15,18 9,12 15,6"/>
+                    </svg>
+                </button>
+                <div class="image-container">
+                    <img id="viewer-image" src="" alt="" class="zoomable-image">
+                    <video id="viewer-video" controls class="hidden"></video>
+                </div>
+                <button class="nav-btn nav-next glass-icon" onclick="showNextImage()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9,18 15,12 9,6"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="image-viewer-footer">
+                <div class="rating-container">
+                    <span class="rating-label">التقييم:</span>
+                    <div class="rating-stars" id="rating-stars">
+                        <button class="star" data-rating="1" onclick="rateCurrentImage(1)">★</button>
+                        <button class="star" data-rating="2" onclick="rateCurrentImage(2)">★</button>
+                        <button class="star" data-rating="3" onclick="rateCurrentImage(3)">★</button>
+                        <button class="star" data-rating="4" onclick="rateCurrentImage(4)">★</button>
+                        <button class="star" data-rating="5" onclick="rateCurrentImage(5)">★</button>
+                    </div>
+                </div>
+                <div class="image-stats">
+                    <span class="stat">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <span id="view-count">0</span>
+                    </span>
+                    <span class="stat">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        <span id="upload-date">2024-01-01</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Manager Modal -->
+    <div id="category-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-icon">
+            <div class="modal-header">
+                <h3 class="modal-title shiny-text">إدارة التصنيفات والعلامات</h3>
+                <button class="modal-close" onclick="closeModal('category-modal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="category-section">
+                    <h4>التصنيفات</h4>
+                    <div class="category-list" id="category-list">
+                        <!-- Categories will be populated here -->
+                    </div>
+                    <div class="add-category">
+                        <input type="text" id="new-category" placeholder="إضافة تصنيف جديد">
+                        <button class="btn btn-primary" onclick="addCategory()">إضافة</button>
+                    </div>
+                </div>
+                <div class="category-section">
+                    <h4>العلامات التجارية</h4>
+                    <div class="brand-list" id="brand-list">
+                        <!-- Brands will be populated here -->
+                    </div>
+                    <div class="add-brand">
+                        <input type="text" id="new-brand" placeholder="إضافة علامة تجارية جديدة">
+                        <button class="btn btn-primary" onclick="addBrand()">إضافة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Links Editor Modal -->
+    <div id="social-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-icon">
+            <div class="modal-header">
+                <h3 class="modal-title shiny-text">تعديل روابط وسائل التواصل الاجتماعي</h3>
+                <button class="modal-close" onclick="closeModal('social-modal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="social-editor" id="social-editor">
+                    <!-- Social links editor will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notifications" class="notifications-container"></div>
+
+    <!-- Audio Elements -->
+    <audio id="click-sound" preload="auto">
+        <source src="./audio/click.mp3" type="audio/mpeg">
+        <source src="./audio/click.wav" type="audio/wav">
+    </audio>
+    <audio id="upload-sound" preload="auto">
+        <source src="./audio/upload.mp3" type="audio/mpeg">
+        <source src="./audio/upload.wav" type="audio/wav">
+    </audio>
+    <audio id="notification-sound" preload="auto">
+        <source src="./audio/notification.mp3" type="audio/mpeg">
+        <source src="./audio/notification.wav" type="audio/wav">
+    </audio>
+
+    <!-- JavaScript -->
+    <script src="./js/script.js"></script>
+</body>
+</html>
+
